@@ -4,39 +4,36 @@ include('connection.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user = $_POST['username'];
-    $pass = $_POST['password'];
-    $rememberMe = isset($_POST['remember']); // Checkbox remember me
+    $pass = md5($_POST['password']);
+    $remember = $_POST['remember'];
 
-    $sql = "SELECT * FROM InfoAkun WHERE username = ?";
-    $params = array($user);
-    $stmt = sqlsrv_query($conn, $sql, $params);
+    $sql = "SELECT * FROM Info_Akun WHERE username = ?";
+    $param = array($user);
+    $stmt = sqlsrv_query($conn, $sql, $param);
 
     if ($stmt && sqlsrv_has_rows($stmt)) {
         $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
 
-        if (md5($pass) === $row['password']) { // Validasi password dengan md5
+        if ($pass === $row['password']) {
             $_SESSION['id'] = $row['id_akun'];
             $_SESSION['username'] = $row['username'];
             $_SESSION['role'] = $row['role'];
 
-            if ($rememberMe) {
-                // Membuat token untuk cookies
+            if ($remember === 'true') {
                 $token = bin2hex(random_bytes(16));
-                $update_sql = "UPDATE InfoAkun SET token = ? WHERE id_akun = ?";
+                $update_sql = "UPDATE Info_Akun SET token = ? WHERE id_akun = ?";
                 $update_params = array($token, $row['id_akun']);
                 sqlsrv_query($conn, $update_sql, $update_params);
 
-                // Set cookie dengan HttpOnly
                 setcookie('token', $token, time() + (86400 * 30), "/", "", false, true);
             }
 
-            // Redirect atau tampilkan role
             echo $row['role'];
         } else {
-            echo 'Username atau password salah.';
+            echo 'Input Salah';
         }
     } else {
-        echo 'Username atau password salah.';
+        echo 'Input Salah';
     }
 
     if ($stmt) {

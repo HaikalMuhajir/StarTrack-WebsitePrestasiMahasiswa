@@ -1,11 +1,15 @@
+<?php
+session_start()
+  ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>Login</title>
-  <meta content="Login Page StarTrack - Website Pencatatan Prestasi Mahasiswa Politeknik Negeri Malang" name="description">
+  <meta content="Login Page StarTrack - Website Pencatatan Prestasi Mahasiswa Politeknik Negeri Malang"
+    name="description">
   <meta content="Login StarTrack" name="keywords">
 
   <!-- Favicons -->
@@ -14,7 +18,9 @@
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -29,42 +35,49 @@
   <link href="assets/css/style.css" rel="stylesheet">
 
   <?php
-  if(isset($_COOKIE['token'])){
+  if (isset($_COOKIE['token'])) {
     include('assets/php/verify-token.php');
   }
+
+  if (isset($_SESSION['id'])) {
+    include('assets/php/bouncer.php');
+  }
+
   ?>
 </head>
 
-<body>
+<body style="background: url('assets/img/background.jpg') no-repeat center center fixed; background-size: cover;">
 
   <main>
     <div class="container">
-      <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+      <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4 ">
         <div class="container">
           <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center" style="opacity : 80%">
               <div class="card mb-3">
-                <div class="card-body">
-                  <div class="pt-2 pb-2">
-                    <div class="d-flex justify-content-center py-4">
-                      <a href="index.html" class="logo d-flex align-items-center w-auto">
+                <div class="card-body" >
+                  <div class="pt-2 pb-2"> 
+                    <div class="d-flex justify-content-center py-3">
+                      <a href="index.html" class="logo-img d-flex align-items-center w-auto">
                         <img src="assets/img/logo.png" alt="">
-                        <span class="d-lg-block">StarTrack</span>
                       </a>
                     </div>
                   </div>
 
-                  <form class="row g-3 needs-validation" id="loginForm" action="assets/php/login.php" method="post" novalidate>
+                  <form class="row g-3 needs-validation" id="loginForm" action="assets/php/login.php" method="post"
+                    novalidate>
                     <div class="col-12">
                       <div class="input-group has-validation">
-                        <input type="text" name="username" class="form-control" id="username" placeholder="Username" required>
+                        <input type="text" name="username" class="form-control" id="username" placeholder="Username"
+                          required>
                         <div class="invalid-feedback" id="username-error"></div>
                       </div>
                     </div>
-
+                    
                     <div class="col-12">
                       <div class="input-group has-validation">
-                        <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
+                        <input type="password" name="password" class="form-control" id="password" placeholder="Password"
+                          required>
                         <button type="button" id="togglePassword" class="btn btn-primary">
                           <i class="bi bi-eye-slash" id="eyeIcon"></i>
                         </button>
@@ -84,10 +97,7 @@
                     </div>
 
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Login</button>
-                    </div>
-                    <div class="col-12">
-                      <p class="small mb-0">Lupa password? <a href="#">Klik Disini</a></p>
+                      <button class="btn btn-primary w-100 mb-2" type="submit">Login</button>
                     </div>
                   </form>
 
@@ -98,7 +108,8 @@
         </div>
       </section>
     </div>
-  </main><!-- End #main -->
+  </main>
+  <!-- End #main -->
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
@@ -110,7 +121,7 @@
   <script src="assets/vendor/tinymce/tinymce.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
   <script src="assets/vendor/jquery/jquery-3.7.1.min.js"></script>
-  
+
   <!-- Login JS File -->
   <script src="assets/js/login.js"></script>
 

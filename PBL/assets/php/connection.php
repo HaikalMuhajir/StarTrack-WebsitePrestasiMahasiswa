@@ -1,6 +1,7 @@
 <?php
 $serverName = 'WORK';
-$connectionInfo = array("Database" => 'PBL', 'UID' => '', 'PWD' => '');
+$connectionInfo = array("Database" => 'PRESMA', 'UID' => '', 'PWD' => '');
+
 $conn = sqlsrv_connect($serverName, $connectionInfo);
 
 if (!$conn) {

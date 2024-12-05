@@ -20,7 +20,7 @@ $(document).ready(function () {
         if (!blankValidation(username, password)) {
             return;
         }
-
+ 
         $.ajax({
             url: 'assets/php/login.php',
             type: 'POST',
@@ -31,8 +31,6 @@ $(document).ready(function () {
             },
             success: function (response) {
                 $('#error-message').hide();
-
-                console.log(response);
                 switch (response) {
                     case 'Mahasiswa':
                         window.location.href = 'dashboard-mahasiswa.php';
@@ -44,6 +42,7 @@ $(document).ready(function () {
                         window.location.href = 'dashboard-adminpolinema.php';
                         break;
                     case 'Input Salah':
+                        
                         $('#error-message').text('Username Atau Password Salah !').show();
                         $('#password').val('');
                         $('#username').val('');
