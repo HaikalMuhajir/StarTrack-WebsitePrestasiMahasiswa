@@ -551,6 +551,41 @@ include 'koneksi.php';
         <div class="card-body">
             <h5 class="card-title">Data Mahasiswa</h5>
             <p>Kosongkan jika kategori perlombaan adalah individu <span class="text-danger">*</span></p>
+            
+            <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Mahasiswa</th>
+                    <th>Peran</th>
+                    <th>Hapus</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Baris pertama -->
+                <tr>
+                    <td>1</td>
+                    <td>
+                        <select class="form-select">
+                            <option value="">Pilih Mahasiswa</option>
+                            <option value="">-</option>
+                        </select>
+                    </td>
+                    <td>
+                          <select class="form-select">
+                              <option value="">Pilih Peran</option>
+                              <option value="">Ketua</option>
+                              <option value="">Anggota</option>
+                              <option value="">Personal</option>
+                          </select>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger btn-sm">Hapus</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
             <span class="btn btn-success col fileinput-button">
                 <i class="fas fa-plus"></i>
                 <span>Tambah Mahasiswa </span>
