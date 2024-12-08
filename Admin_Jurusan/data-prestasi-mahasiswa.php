@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Data Prestasi Mahasiswa - NiceAdmin Bootstrap Template</title>
+  <title>Validasi Prestasi Mahasiswa - NiceAdmin Bootstrap Template</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -158,8 +158,8 @@
 
       <li class="nav-item">
         <a class="nav-link" href="data-prestasi-mahasiswa.php">
-          <i class="bi bi-award"></i>
-          <span>Data Prestasi Mahasiswa</span>
+          <i class="bi bi-check-circle"></i>
+          <span>Validasi Prestasi Mahasiswa</span>
         </a>
       </li><!-- End Data Prestasi Mahasiswa Nav -->
 
@@ -174,11 +174,11 @@
 
   <main id="main" class="main">
     <div class="pagetitle">
-      <h1>Data Prestasi Mahasiswa</h1>
+      <h1>Validasi Prestasi Mahasiswa</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">Data Prestasi Mahasiswa</li>
+          <li class="breadcrumb-item active">Validasi Prestasi Mahasiswa</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -188,7 +188,7 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Filter Data Prestasi Mahasiswa</h5>
+              <h5 class="card-title">Filter Daftar Prestasi Mahasiswa</h5>
 
               <!-- Filter Form -->
               <form id="filterForm">
@@ -292,6 +292,7 @@
                       <th scope="col">No</th>
                       <th scope="col">NIM</th>
                       <th scope="col">Nama Lengkap</th>
+                      <th scope="col">Program Studi</th>
                       <th scope="col">Nama Lomba</th>
                       <th scope="col">Tingkat Prestasi</th>
                       <th scope="col">Status</th>
@@ -385,11 +386,10 @@
           id: 1,
           nim: '12345',
           namaLengkap: 'John Doe',
+          programStudi: 'D4 Teknik Informatika',
           namaLomba: 'Hackathon 2023',
           tingkatPrestasi: 'Nasional',
           status: 'Belum Divalidasi',
-          jurusan: 'Teknik',
-          programStudi: 'Informatika',
           jenisPrestasi: 'Kompetisi',
           capaianPrestasi: 'Juara 1',
           lokasi: 'Jakarta',
@@ -401,19 +401,34 @@
         // Add more sample data here
       ];
 
+      function calculatePoints(tingkatPrestasi) {
+        switch (tingkatPrestasi) {
+          case 'Internasional': return 100;
+          case 'Nasional': return 25;
+          case 'Provinsi': return 20;
+          case 'Kabupaten': return 15;
+          case 'Kecamatan': return 10;
+          case 'Kelurahan': return 5;
+          case 'Kampus/Institusi': return 5;
+          default: return 0;
+        }
+      }
+
       function populateTable(data) {
         tableBody.innerHTML = '';
         if (data.length === 0) {
           const row = document.createElement('tr');
-          row.innerHTML = '<td colspan="8" class="text-center">Belum ada data yang masuk</td>';
+          row.innerHTML = '<td colspan="9" class="text-center">Belum ada data yang masuk</td>';
           tableBody.appendChild(row);
         } else {
           data.forEach((item, index) => {
+            item.poin = calculatePoints(item.tingkatPrestasi); // Update: Calculate points here
             const row = document.createElement('tr');
             row.innerHTML = `
               <td>${index + 1}</td>
               <td>${item.nim}</td>
               <td>${item.namaLengkap}</td>
+              <td>${item.programStudi}</td>
               <td>${item.namaLomba}</td>
               <td>${item.tingkatPrestasi}</td>
               <td>
@@ -446,7 +461,6 @@
           modalContent.innerHTML = `
             <p><strong>NIM:</strong> ${item.nim}</p>
             <p><strong>Nama:</strong> ${item.namaLengkap}</p>
-            <p><strong>Jurusan:</strong> ${item.jurusan}</p>
             <p><strong>Program Studi:</strong> ${item.programStudi}</p>
             <p><strong>Jenis Prestasi:</strong> ${item.jenisPrestasi}</p>
             <p><strong>Capaian:</strong> ${item.capaianPrestasi}</p>
@@ -455,7 +469,7 @@
             <p><strong>Tanggal Pengajuan:</strong> ${item.tanggalPengajuan}</p>
             <p><strong>Sertifikat:</strong> <a href="${item.sertifikat}" target="_blank">Lihat Sertifikat</a></p>
             <p><strong>Dokumentasi:</strong> <a href="${item.dokumentasi}" target="_blank">Lihat Dokumentasi</a></p>
-            <p><strong>Poin:</strong> ${item.poin}</p>
+            <p><strong>Poin:</strong> ${calculatePoints(item.tingkatPrestasi)}</p>  <!-- Update: Use calculatePoints here -->
           `;
           modal.style.display = 'block';
 
@@ -509,7 +523,7 @@
         order: [[0, 'asc']],
         columnDefs: [
           { orderable: true, targets: '_all' },
-          { orderable: false, targets: [7] }
+          { orderable: false, targets: [8] }
         ],
         dom: "<'row'<'col-sm-12'tr>>" +
              "<'row'<'col-sm-5'i><'col-sm-7'p>>",
