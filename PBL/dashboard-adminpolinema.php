@@ -1,11 +1,12 @@
 <?php
 session_start();
+if(isset($_COOKIE['token'])){
+    include("assets/php/verify-token.php");
 
-include("assets/php/verify-token.php");
+}
 
 if ($_SESSION['role'] !== 'Admin Polinema') {
-    header('Location: login-page.php');
-    exit;
+    include('assets/php/bouncer.php');
 }
 
 ?>
@@ -17,6 +18,7 @@ if ($_SESSION['role'] !== 'Admin Polinema') {
     <title>Document</title>
 </head>
 <body>
-    <h1>MAHASISWA</h1>  
+    <h1>Admin Polinema</h1>  
+    <a href="assets/php/logout.php">LOGOUT</a>
 </body>
 </html>

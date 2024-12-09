@@ -5,7 +5,7 @@ include('connection.php');
 if (isset($_COOKIE['token'])) {
     $token = $_COOKIE['token'];
 
-    $sql = "UPDATE InfoAkun SET token = NULL WHERE token = ?";
+    $sql = "UPDATE Info_Akun SET token = NULL WHERE token = ?";
     $params = array($token);
 
     $stmt = sqlsrv_query($conn, $sql, $params);
