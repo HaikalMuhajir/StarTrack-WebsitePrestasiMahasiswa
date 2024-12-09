@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -362,232 +363,263 @@
   <!-- Custom JS for Data Prestasi Mahasiswa -->
   <script>
   document.addEventListener('DOMContentLoaded', function() {
-  const filterForm = document.getElementById('filterForm');
-  const jurusanSelect = document.getElementById('jurusan');
-  const programStudiSelect = document.getElementById('programStudi');
-  const prestasiTable = document.getElementById('prestasiTable');
-  const tableBody = prestasiTable.querySelector('tbody');
-  const modal = document.getElementById('prestasiModal');
-  const modalTitle = document.getElementById('modalTitle');
-  const modalContent = document.getElementById('modalContent');
+    const filterForm = document.getElementById('filterForm');
+    const jurusanSelect = document.getElementById('jurusan');
+    const programStudiSelect = document.getElementById('programStudi');
+    const prestasiTable = document.getElementById('prestasiTable');
+    const tableBody = prestasiTable.querySelector('tbody');
+    const modal = document.getElementById('prestasiModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalContent = document.getElementById('modalContent');
 
-  // Program Studi options based on Jurusan
-  const programStudiOptions = {
-    'Teknik Elektro': [
-      'D-III Teknik Listrik',
-      'D-III Teknik Elektronika',
-      'D-III Teknik Telekomunikasi',
-      'D-IV Sistem Kelistrikan',
-      'D-IV Teknik Elektronika',
-      'D-IV Teknik Jaringan Telekomunikasi Digital',
-      'Magister Terapan (S2) Teknik Elektro'
-    ],
-    'Teknik Mesin': [
-      'D-III Teknik Mesin',
-      'D-III Teknologi Pemeliharaan Pesawat Udara',
-      'D-IV Teknik Mesin, Produksi dan Perawatan',
-      'D-IV Teknik Otomotif Elektronik',
-      'Magister Terapan (S2) Rekayasa Teknologi Manufaktur'
-    ],
-    'Teknologi Informasi': [
-      'D-II Pengembangan Piranti Lunak Situs',
-      'D-IV Sistem Informasi Bisnis',
-      'D-IV Teknik Informatika',
-      'Magister Terapan (S2) Rekayasa Teknologi Informasi'
-    ],
-    'Teknik Kimia': [
-      'D-III Teknik Kimia',
-      'D-IV Teknologi Kimia Industri'
-    ],
-    'Teknik Sipil': [
-      'D-III Teknik Sipil',
-      'D-III Teknologi Konstruksi Jalan, Jembatan, Dan Bangunan Air',
-      'D-III Teknologi Pertambangan',
-      'D-IV Teknologi Rekayasa Konstruksi Jalan Dan Jembatan',
-      'D-IV Manajemen Rekayasa Konstruksi'
-    ],
-    'Akuntansi': [
-      'D-III Akuntansi',
-      'D-IV Keuangan',
-      'D-IV Akuntansi Manajemen',
-      'Magister Terapan (S2) Sistem Informasi Akuntansi'
-    ],
-    'Administrasi Niaga': [
-      'D-III Administrasi Bisnis',
-      'D-IV Manajemen Pemasaran',
-      'D-IV Bahasa Inggris untuk Komunikasi Bisnis dan Profesional',
-      'D-IV Bahasa Inggris untuk Industri Pariwisata',
-      'D-IV Pengelolaan Arsip dan Rekaman Informasi',
-      'D-IV Usaha Perjalanan Wisata'
-    ]
-  };
-
-  // Sample data (replace with actual data from your database)
-  const sampleData = [
-    {
-      id: 1,
-      nim: '12345',
-      namaLengkap: 'John Doe',
-      jurusan: 'Teknologi Informasi',
-      programStudi: 'D-IV Teknik Informatika',
-      namaLomba: 'Hackathon 2023',
-      tingkatPrestasi: 'Nasional',
-      capaianPrestasi: 'Juara 1',
-      jenisPrestasi: 'Kompetisi',
-      lokasi: 'Jakarta',
-      tanggalPengajuan: '2023-05-01',
-      sertifikat: 'path/to/sertifikat.pdf',
-      dokumentasi: 'path/to/dokumentasi.jpg',
-      poin: 25
-    },
-    // Add more sample data here
-  ];
-
-  // Function to update Program Studi options
-  function updateProgramStudiOptions() {
-    const selectedJurusan = jurusanSelect.value;
-    programStudiSelect.innerHTML = '<option value="">Pilih Program Studi</option>';
-    if (selectedJurusan && programStudiOptions[selectedJurusan]) {
-      programStudiOptions[selectedJurusan].forEach(option => {
-        const optionElement = document.createElement('option');
-        optionElement.value = option;
-        optionElement.textContent = option;
-        programStudiSelect.appendChild(optionElement);
-      });
-    }
-  }
-
-  // Event listener for Jurusan select
-  jurusanSelect.addEventListener('change', updateProgramStudiOptions);
-
-  function populateTable(data) {
-    tableBody.innerHTML = '';
-    if (data.length === 0) {
-      const row = document.createElement('tr');
-      row.innerHTML = '<td colspan="10" class="text-center">Belum ada data yang masuk</td>';
-      tableBody.appendChild(row);
-    } else {
-      data.forEach((item, index) => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td>${index + 1}</td>
-          <td>${item.nim}</td>
-          <td>${item.namaLengkap}</td>
-          <td>${item.jurusan}</td>
-          <td>${item.programStudi}</td>
-          <td>${item.namaLomba}</td>
-          <td>${item.tingkatPrestasi}</td>
-          <td>${item.capaianPrestasi}</td>
-          <td>${item.poin}</td>
-          <td>
-            <button class="btn btn-sm btn-primary" onclick="showDetails(${item.id})">
-              <i class="bi bi-eye"></i> Detail
-            </button>
-          </td>
-        `;
-        tableBody.appendChild(row);
-      });
-    }
-  }
-
-  function showDetails(id) {
-    const item = sampleData.find(d => d.id === id);
-    if (item) {
-      modalTitle.textContent = item.namaLomba;
-      modalContent.innerHTML = `
-        <p><strong>NIM:</strong> ${item.nim}</p>
-        <p><strong>Nama:</strong> ${item.namaLengkap}</p>
-        <p><strong>Jurusan:</strong> ${item.jurusan}</p>
-        <p><strong>Program Studi:</strong> ${item.programStudi}</p>
-        <p><strong>Jenis Prestasi:</strong> ${item.jenisPrestasi}</p>
-        <p><strong>Capaian:</strong> ${item.capaianPrestasi}</p>
-        <p><strong>Tingkat:</strong> ${item.tingkatPrestasi}</p>
-        <p><strong>Lokasi:</strong> ${item.lokasi}</p>
-        <p><strong>Tanggal Pengajuan:</strong> ${item.tanggalPengajuan}</p>
-        <p><strong>Sertifikat:</strong> <a href="${item.sertifikat}" target="_blank">Lihat Sertifikat</a></p>
-        <p><strong>Dokumentasi:</strong> <a href="${item.dokumentasi}" target="_blank">Lihat Dokumentasi</a></p>
-        <p><strong>Poin:</strong> ${item.poin}</p>
-      `;
-      modal.style.display = 'block';
-    }
-  }
-
-  // Close modal when clicking on <span> (x)
-  document.querySelector('.close').onclick = function() {
-    modal.style.display = 'none';
-  }
-
-  // Close modal when clicking outside of it
-  window.onclick = function(event) {
-    if (event.target == modal) {
-      modal.style.display = 'none';
-    }
-  }
-
-  filterForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    const filters = {
-      jurusan: jurusanSelect.value,
-      programStudi: programStudiSelect.value,
-      jenisPrestasi: document.getElementById('jenisPrestasi').value,
-      tingkatPrestasi: document.getElementById('tingkatPrestasi').value
+    // Program Studi options based on Jurusan
+    const programStudiOptions = {
+      'Teknik Elektro': [
+        'D-III Teknik Listrik',
+        'D-III Teknik Elektronika',
+        'D-III Teknik Telekomunikasi',
+        'D-IV Sistem Kelistrikan',
+        'D-IV Teknik Elektronika',
+        'D-IV Teknik Jaringan Telekomunikasi Digital',
+        'Magister Terapan (S2) Teknik Elektro'
+      ],
+      'Teknik Mesin': [
+        'D-III Teknik Mesin',
+        'D-III Teknologi Pemeliharaan Pesawat Udara',
+        'D-IV Teknik Mesin, Produksi dan Perawatan',
+        'D-IV Teknik Otomotif Elektronik',
+        'Magister Terapan (S2) Rekayasa Teknologi Manufaktur'
+      ],
+      'Teknologi Informasi': [
+        'D-II Pengembangan Piranti Lunak Situs',
+        'D-IV Sistem Informasi Bisnis',
+        'D-IV Teknik Informatika',
+        'Magister Terapan (S2) Rekayasa Teknologi Informasi'
+      ],
+      'Teknik Kimia': [
+        'D-III Teknik Kimia',
+        'D-IV Teknologi Kimia Industri'
+      ],
+      'Teknik Sipil': [
+        'D-III Teknik Sipil',
+        'D-III Teknologi Konstruksi Jalan, Jembatan, Dan Bangunan Air',
+        'D-III Teknologi Pertambangan',
+        'D-IV Teknologi Rekayasa Konstruksi Jalan Dan Jembatan',
+        'D-IV Manajemen Rekayasa Konstruksi'
+      ],
+      'Akuntansi': [
+        'D-III Akuntansi',
+        'D-IV Keuangan',
+        'D-IV Akuntansi Manajemen',
+        'Magister Terapan (S2) Sistem Informasi Akuntansi'
+      ],
+      'Administrasi Niaga': [
+        'D-III Administrasi Bisnis',
+        'D-IV Manajemen Pemasaran',
+        'D-IV Bahasa Inggris untuk Komunikasi Bisnis dan Profesional',
+        'D-IV Bahasa Inggris untuk Industri Pariwisata',
+        'D-IV Pengelolaan Arsip dan Rekaman Informasi',
+        'D-IV Usaha Perjalanan Wisata'
+      ]
     };
 
-    const filteredData = sampleData.filter(item => {
-      return (!filters.jurusan || item.jurusan === filters.jurusan) &&
-             (!filters.programStudi || item.programStudi === filters.programStudi) &&
-             (!filters.jenisPrestasi || item.jenisPrestasi === filters.jenisPrestasi) &&
-             (!filters.tingkatPrestasi || item.tingkatPrestasi === filters.tingkatPrestasi);
-    });
+    // Sample data (replace with actual data from your database)
+    const sampleData = [
+      {
+        id: 1,
+        nim: '12345',
+        namaLengkap: 'John Doe',
+        jurusan: 'Teknologi Informasi',
+        programStudi: 'D-IV Teknik Informatika',
+        namaLomba: 'Hackathon 2023',
+        tingkatPrestasi: 'Nasional',
+        capaianPrestasi: 'Juara 1',
+        jenisPrestasi: 'Kompetisi',
+        lokasi: 'Jakarta',
+        tanggalPengajuan: '2023-05-01',
+        sertifikat: 'path/to/sertifikat.pdf',
+        dokumentasi: 'path/to/dokumentasi.jpg',
+        poin: 25
+      },
+      // Add more sample data here
+    ];
 
-    populateTable(filteredData);
-  });
-
-  filterForm.addEventListener('reset', function() {
-    populateTable(sampleData);
-  });
-
-  // Initialize DataTable
-  const table = $('#prestasiTable').DataTable({
-    pageLength: 10,
-    lengthMenu: [10, 25, 50, 75, 100],
-    info: true,
-    paging: true,
-    ordering: true,
-    order: [[0, 'asc']],
-    columnDefs: [
-      { orderable: true, targets: '_all' },
-      { orderable: false, targets: [9] }
-    ],
-    dom: "<'row'<'col-sm-12'tr>>" +
-         "<'row'<'col-sm-5'i><'col-sm-7'p>>",
-    language: {
-      info: "Showing _START_ to _END_ of _TOTAL_ entries",
-      infoFiltered: "(filtered from _MAX_ total entries)",
-      search: "",
-      searchPlaceholder: "Search...",
-      paginate: {
-        previous: "&laquo;",
-        next: "&raquo;"
+    // Function to update Program Studi options
+    function updateProgramStudiOptions() {
+      const selectedJurusan = jurusanSelect.value;
+      programStudiSelect.innerHTML = '<option value="">Pilih Program Studi</option>';
+      if (selectedJurusan && programStudiOptions[selectedJurusan]) {
+        programStudiOptions[selectedJurusan].forEach(option => {
+          const optionElement = document.createElement('option');
+          optionElement.value = option;
+          optionElement.textContent = option;
+          programStudiSelect.appendChild(optionElement);
+        });
       }
     }
-  });
 
-  // Sync "Show entries" dropdown with DataTable
-  $('#entriesSelect').on('change', function () {
-    table.page.len($(this).val()).draw();
-  });
+    // Event listener for Jurusan select
+    jurusanSelect.addEventListener('change', updateProgramStudiOptions);
 
-  // Update search functionality
-  $('#tableSearch').on('keyup', function() {
-    table.search(this.value).draw();
-  });
+    function populateTable(data) {
+      tableBody.innerHTML = '';
+      if (data.length === 0) {
+        const row = document.createElement('tr');
+        row.innerHTML = '<td colspan="10" class="text-center">Belum ada data yang masuk</td>';
+        tableBody.appendChild(row);
+      } else {
+        data.forEach((item, index) => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${item.nim}</td>
+            <td>${item.namaLengkap}</td>
+            <td>${item.jurusan}</td>
+            <td>${item.programStudi}</td>
+            <td>${item.namaLomba}</td>
+            <td>${item.tingkatPrestasi}</td>
+            <td>${item.capaianPrestasi}</td>
+            <td>${item.poin}</td>
+            <td>
+              <button class="btn btn-sm btn-primary mb-1 me-1" onclick="showDetails(${item.id})">
+                <i class="bi bi-eye"></i> Detail
+              </button>
+              <button class="btn btn-sm btn-warning mb-1 me-1" onclick="editPrestasi(${item.id})">
+                <i class="bi bi-pencil"></i> Edit
+              </button>
+              <button class="btn btn-sm btn-danger mb-1" onclick="deletePrestasi(${item.id})">
+                <i class="bi bi-trash"></i> Hapus
+              </button>
+            </td>
+          `;
+          tableBody.appendChild(row);
+        });
+      }
+    }
 
-  // Initial population of the table
-  populateTable(sampleData);
+    function showDetails(id) {
+      const item = sampleData.find(d => d.id === id);
+      if (item) {
+        modalTitle.textContent = item.namaLomba;
+        modalContent.innerHTML = `
+          <p><strong>NIM:</strong> ${item.nim}</p>
+          <p><strong>Nama:</strong> ${item.namaLengkap}</p>
+          <p><strong>Jurusan:</strong> ${item.jurusan}</p>
+          <p><strong>Program Studi:</strong> ${item.programStudi}</p>
+          <p><strong>Jenis Prestasi:</strong> ${item.jenisPrestasi}</p>
+          <p><strong>Capaian:</strong> ${item.capaianPrestasi}</p>
+          <p><strong>Tingkat:</strong> ${item.tingkatPrestasi}</p>
+          <p><strong>Lokasi:</strong> ${item.lokasi}</p>
+          <p><strong>Tanggal Pengajuan:</strong> ${item.tanggalPengajuan}</p>
+          <p><strong>Sertifikat:</strong> <a href="${item.sertifikat}" target="_blank">Lihat Sertifikat</a></p>
+          <p><strong>Dokumentasi:</strong> <a href="${item.dokumentasi}" target="_blank">Lihat Dokumentasi</a></p>
+          <p><strong>Poin:</strong> ${item.poin}</p>
+          <div class="mt-3">
+            <button class="btn btn-warning" onclick="editPrestasi(${item.id})">
+              <i class="bi bi-pencil"></i> Edit
+            </button>
+            <button class="btn btn-danger" onclick="deletePrestasi(${item.id})">
+              <i class="bi bi-trash"></i> Hapus
+            </button>
+          </div>
+        `;
+        modal.style.display = 'block';
+      }
+    }
 
-  // Make showDetails function global so it can be called from inline onclick
-  window.showDetails = showDetails;
+    function editPrestasi(id) {
+      // Placeholder function for editing prestasi
+      alert(`Editing prestasi with ID: ${id}`);
+      // In a real application, this would open an edit form or redirect to an edit page
+    }
+
+    function deletePrestasi(id) {
+      // Placeholder function for deleting prestasi
+      if (confirm(`Are you sure you want to delete prestasi with ID: ${id}?`)) {
+        alert(`Deleting prestasi with ID: ${id}`);
+        // In a real application, this would send a delete request to the server
+        // and then remove the item from the table if successful
+      }
+    }
+
+    // Close modal when clicking on <span> (x)
+    document.querySelector('.close').onclick = function() {
+      modal.style.display = 'none';
+    }
+
+    // Close modal when clicking outside of it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    }
+
+    filterForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const filters = {
+        jurusan: jurusanSelect.value,
+        programStudi: programStudiSelect.value,
+        jenisPrestasi: document.getElementById('jenisPrestasi').value,
+        tingkatPrestasi: document.getElementById('tingkatPrestasi').value
+      };
+
+      const filteredData = sampleData.filter(item => {
+        return (!filters.jurusan || item.jurusan === filters.jurusan) &&
+               (!filters.programStudi || item.programStudi === filters.programStudi) &&
+               (!filters.jenisPrestasi || item.jenisPrestasi === filters.jenisPrestasi) &&
+               (!filters.tingkatPrestasi || item.tingkatPrestasi === filters.tingkatPrestasi);
+      });
+
+      populateTable(filteredData);
+    });
+
+    filterForm.addEventListener('reset', function() {
+      populateTable(sampleData);
+    });
+
+    // Initialize DataTable
+    const table = $('#prestasiTable').DataTable({
+      pageLength: 10,
+      lengthMenu: [10, 25, 50, 75, 100],
+      info: true,
+      paging: true,
+      ordering: true,
+      order: [[0, 'asc']],
+      columnDefs: [
+        { orderable: true, targets: '_all' },
+        { orderable: false, targets: [9] }
+      ],
+      dom: "<'row'<'col-sm-12'tr>>" +
+           "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+      language: {
+        info: "Showing _START_ to _END_ of _TOTAL_ entries",
+        infoFiltered: "(filtered from _MAX_ total entries)",
+        search: "",
+        searchPlaceholder: "Search...",
+        paginate: {
+          previous: "&laquo;",
+          next: "&raquo;"
+        }
+      }
+    });
+
+    // Sync "Show entries" dropdown with DataTable
+    $('#entriesSelect').on('change', function () {
+      table.page.len($(this).val()).draw();
+    });
+
+    // Update search functionality
+    $('#tableSearch').on('keyup', function() {
+      table.search(this.value).draw();
+    });
+
+    // Initial population of the table
+    populateTable(sampleData);
+
+    // Make functions global so they can be called from inline onclick
+    window.showDetails = showDetails;
+    window.editPrestasi = editPrestasi;
+    window.deletePrestasi = deletePrestasi;
   });
   </script>
 
