@@ -129,7 +129,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
       </li><!-- End Data Prestasi Mahasiswa Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="input-data.php">
+        <a class="nav-link" href="input-data.php">
           <i class="bi bi-plus-circle"></i>
           <span>Input Prestasi</span>
         </a>

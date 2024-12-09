@@ -148,7 +148,7 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="data-mahasiswa.php">
+        <a class="nav-link" href="data-mahasiswa.php">
           <i class="bi bi-award"></i>
           <span>Data Mahasiswa</span>
         </a>
