@@ -118,7 +118,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
             <li>
               <a class="dropdown-item d-flex align-items-center" href="../PBL/login-page.php">
                 <i class="bi bi-box-arrow-right"></i>
-                <span>Keluar</span>
+                <span>Log out</span>
               </a>
             </li>
           </ul>
@@ -148,6 +148,13 @@ $current_page = basename($_SERVER['PHP_SELF']);
         <a class="nav-link collapsed" href="input-data.php">
           <i class="bi bi-plus-circle"></i>
           <span>Input Prestasi</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="status.php">
+          <i class="bi bi-check-circle"></i>
+          <span>Status Validasi</span>
         </a>
       </li>
 
