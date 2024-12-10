@@ -18,7 +18,7 @@ if ($_SESSION['role'] !== 'Admin Jurusan') {
     <title>Document</title>
 </head>
 <body>
-    <h1>Admin Jursan</h1>  
+    <h1>Admin Jurusan</h1>  
     <a href="assets/php/logout.php">LOGOUT</a>
 </body>
 </html>

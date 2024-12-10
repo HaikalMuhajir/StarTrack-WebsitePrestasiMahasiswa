@@ -1,3 +1,6 @@
+<?php 
+include 'koneksi.php'; 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +8,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Input Prestasi - NiceAdmin Bootstrap Template</title>
+  <title>Components / Accordion - NiceAdmin Bootstrap Template</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -266,13 +269,6 @@
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
-        <li class="nav-item">
-          <a class="nav-link collapsed" href="data-mahasiswa.php">
-            <i class="bi bi-person"></i>
-            <span>Data Mahasiswa</span>
-          </a>
-        </li><!-- End Data Mahasiswa Nav -->
-
       <li class="nav-item">
         <a class="nav-link collapsed" href="index.html">
           <i class="bi bi-grid"></i>
@@ -280,6 +276,12 @@
         </a>
       </li><!-- End Dashboard Nav -->
 
+      <li class="nav-item">
+      <a class="nav-link collapsed" href="data_mahasiswa.html">
+        <i class="bi bi-person"></i>
+        <span>Data Mahasiswa</span>
+      </a>
+    </li><!-- End Data Mahasiswa Nav -->
 
     </ul>
 
@@ -428,9 +430,8 @@
               <div class="col-sm-10">
                 <select class="form-select" aria-label="Default select example">
                   <option selected>Pilih Prestasi</option>
-                  <option value="1">Riset dan Inovasi</option>
-                  <option value="2">Seni Budaya</option>
-                  <option value="2">Olahraga</option>
+                  <option value="1">Akademik</option>
+                  <option value="2">Non Akademik</option>
                 </select>
               </div>
             </div>
@@ -494,7 +495,7 @@
             </div>
 
             <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-2 col-form-label">Jumlah Peserta</label><br>
+              <label for="inputEmail3" class="col-sm-2 col-form-label">Jumlah Peserta <span class="text-danger">*</span></label><br>
               <div class="col-sm-10">
                 <input type="text" class="form-control" id="inputText">
               </div>
@@ -543,14 +544,6 @@
                 <input class="form-control" type="file" id="formFile">
               </div>
             </div>
-
-            <div class="row mb-3">
-              <label for="inputNumber" class="col-sm-2 col-form-label">File Poster <span class="text-danger">*</span></label>
-              <div class="col-sm-10">
-                <input class="form-control" type="file" id="formFile">
-              </div>
-            </div>
-
         </div>
       </div>  
 
@@ -558,42 +551,42 @@
         <div class="card-body">
             <h5 class="card-title">Data Mahasiswa</h5>
             <p>Kosongkan jika kategori perlombaan adalah individu <span class="text-danger">*</span></p>
-
-            <table class="table table-bordered" id="mahasiswaTable">
-              <thead>
-                  <tr>
-                      <th>No</th>
-                      <th>Mahasiswa</th>
-                      <th>Peran</th>
-                      <th>Hapus</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  <!-- Baris pertama -->
-                  <tr>
-                      <td>1</td>
-                      <td>
+            
+            <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Mahasiswa</th>
+                    <th>Peran</th>
+                    <th>Hapus</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Baris pertama -->
+                <tr>
+                    <td>1</td>
+                    <td>
+                        <select class="form-select">
+                            <option value="">Pilih Mahasiswa</option>
+                            <option value="">-</option>
+                        </select>
+                    </td>
+                    <td>
                           <select class="form-select">
-                              <option value="">Pilih Mahasiswa</option>
-                              <option value="">-</option>
+                              <option value="">Pilih Peran</option>
+                              <option value="">Ketua</option>
+                              <option value="">Anggota</option>
+                              <option value="">Personal</option>
                           </select>
-                      </td>
-                      <td>
-                            <select class="form-select">
-                                <option value="">Pilih Peran</option>
-                                <option value="">Ketua</option>
-                                <option value="">Anggota</option>
-                                <option value="">Personal</option>
-                            </select>
-                      </td>
-                      <td>
-                          <button class="btn btn-danger btn-sm" onclick="removeMahasiswaRow(this)">Hapus</button>
-                      </td>
-                  </tr>
-              </tbody>
-          </table>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger btn-sm">Hapus</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-            <span class="btn btn-success col fileinput-button" onclick="addMahasiswaRow()">
+            <span class="btn btn-success col fileinput-button">
                 <i class="fas fa-plus"></i>
                 <span>Tambah Mahasiswa </span>
             </span>
@@ -610,7 +603,7 @@
         <div class="card-body">
           <h5 class="card-title">Data Pembimbing</h5>
           
-          <table class="table table-bordered" id="pembimbingTable">
+          <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>No</th>
@@ -644,13 +637,13 @@
                         <input type="text" class="form-control" placeholder="Masukkan Peran">
                     </td>
                     <td>
-                        <button class="btn btn-danger btn-sm" onclick="removePembimbingRow(this)">Hapus</button>
+                        <button class="btn btn-danger btn-sm">Hapus</button>
                     </td>
                 </tr>
             </tbody>
         </table>
 
-          <span class="btn btn-success col fileinput-button" onclick="addPembimbingRow()">
+          <span class="btn btn-success col fileinput-button">
                 <i class="fas fa-plus"></i>
                 <span>Tambah Pembimbing </span>
             </span>
@@ -662,88 +655,15 @@
         </div>
       </div>
 
-      <!--Persetujuan -->
-      <div class="card">
-        <div class="card-body">
-          
-        </div>
-      </div>    
-
     <!-- Tombol Simpan dan Kembali -->
-    <div class="d-flex justify-content-end mt-3">
-      <button type="button" class="btn btn-secondary me-2" onclick="goBack()">
-        <i class="bi bi-arrow-left-circle"></i> Kembali
-      </button>
-      <button type="button" class="btn btn-primary">
-        <i class="bi bi-save"></i> Simpan
-      </button>
-    </div>
-    
-    <script>
-    function goBack() {
-      window.location.href = 'data-mahasiswa.php';
-    }
-    </script>
-
-    <script>
-      function addMahasiswaRow() {
-        const table = document.getElementById('mahasiswaTable').getElementsByTagName('tbody')[0];
-        const newRow = table.insertRow(table.rows.length);
-        const cellCount = table.rows[0].cells.length;
-        
-        for (let i = 0; i < cellCount; i++) {
-          const cell = newRow.insertCell(i);
-          if (i === 0) {
-            cell.innerHTML = table.rows.length;
-          } else {
-            cell.innerHTML = table.rows[0].cells[i].innerHTML;
-          }
-        }
-      }
-
-      function removeMahasiswaRow(button) {
-        const row = button.parentNode.parentNode;
-        row.parentNode.removeChild(row);
-        updateMahasiswaRowNumbers();
-      }
-
-      function updateMahasiswaRowNumbers() {
-        const table = document.getElementById('mahasiswaTable').getElementsByTagName('tbody')[0];
-        const rows = table.getElementsByTagName('tr');
-        for (let i = 0; i < rows.length; i++) {
-          rows[i].cells[0].innerHTML = i + 1;
-        }
-      }
-
-      function addPembimbingRow() {
-          const table = document.getElementById('pembimbingTable').getElementsByTagName('tbody')[0];
-          const newRow = table.insertRow(table.rows.length);
-          const cellCount = table.rows[0].cells.length;
-          
-          for (let i = 0; i < cellCount; i++) {
-            const cell = newRow.insertCell(i);
-            if (i === 0) {
-              cell.innerHTML = table.rows.length;
-            } else {
-              cell.innerHTML = table.rows[0].cells[i].innerHTML;
-            }
-          }
-        }
-
-        function removePembimbingRow(button) {
-          const row = button.parentNode.parentNode;
-          row.parentNode.removeChild(row);
-          updatePembimbingRowNumbers();
-        }
-
-        function updatePembimbingRowNumbers() {
-          const table = document.getElementById('pembimbingTable').getElementsByTagName('tbody')[0];
-          const rows = table.getElementsByTagName('tr');
-          for (let i = 0; i < rows.length; i++) {
-            rows[i].cells[0].innerHTML = i + 1;
-          }
-        }
-    </script>
+      <div class="d-flex justify-content-end mt-3">
+        <button type="button" class="btn btn-secondary me-2">
+          <i class="bi bi-arrow-left-circle"></i> Kembali
+        </button>
+        <button type="button" class="btn btn-primary">
+          <i class="bi bi-save"></i> Simpan
+        </button>
+      </div>
 
   <!-- link ikon Bootstrap simpan dan kembali -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">

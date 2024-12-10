@@ -44,8 +44,10 @@ include 'koneksi.php';
 
     <div class="d-flex align-items-center justify-content-between">
       <a href="index.html" class="logo d-flex align-items-center">
-        <img src="assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">NiceAdmin</span>
+        <img src="assets/img/logo-polinema.png" alt="">
+        <span class="d-none d-lg-block">PRESMA
+        <span class="text-primary">POLINEMA</span>
+      </span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -98,7 +100,7 @@ include 'koneksi.php';
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="index.html">
+        <a class="nav-link collapsed" href="form-input.php">
           <i class="bi bi-grid"></i>
           <span>Input Prestasi</span>
         </a>
@@ -121,7 +123,7 @@ include 'koneksi.php';
       <h1>Data Mahasiswa</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item"><a href="form-input.php">Home</a></li>
           <li class="breadcrumb-item active">Data Mahasiswa</li>
         </ol>
       </nav>
@@ -142,16 +144,15 @@ include 'koneksi.php';
             <thead>
               <tr>
                 <th>#</th>
-                <th>Kegiatan</th>
-                <th>Klasifikasi</th>
+                <th>Nama Lomba</th>
+                <th>Kategori Lomba</th>
                 <th>Tingkat</th>
-                <th>Prestasi/Jabatan</th>
-                <th>Deskripsi</th>
-                <th>Capaian</th>
+                <th>Jenis Prestasi</th>
+                <th>Capaian Prestasi</th>
                 <th>Dosen Pembimbing</th>
-                <th>Status SKPI</th>
-                <th>Status Emonev</th>
-                <th>Aksi</th>
+                <th>Status</th>
+                <th>Dokumen</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
