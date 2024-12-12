@@ -1,6 +1,6 @@
 <?php
-$serverName = 'DESKTOP-UN63EH7';
-$connectionInfo = array("Database" => 'pbl', 'UID' => '', 'PWD' => '');
+$serverName = 'WORK';
+$connectionInfo = array("Database" => 'PRESMA', 'UID' => '', 'PWD' => '');
 
 $conn = sqlsrv_connect($serverName, $connectionInfo);
 

@@ -1,12 +1,12 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 include('connection.php');
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user = $_POST['username'];
-    $pass = md5($_POST['password']);
+    $pass = strtoupper(md5($_POST['password']));
     $remember = $_POST['remember'];
-
     $sql = "SELECT * FROM Info_Akun WHERE username = ?";
     $param = array($user);
     $stmt = sqlsrv_query($conn, $sql, $param);

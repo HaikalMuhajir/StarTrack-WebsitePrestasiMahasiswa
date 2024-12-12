@@ -1,6 +1,8 @@
 <?php
-session_start()
-  ?>
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
+?>
 <!DOCTYPE html>
 <html lang="id">
 
@@ -8,10 +10,7 @@ session_start()
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>Login</title>
-  <meta content="Login Page StarTrack - Website Pencatatan Prestasi Mahasiswa Politeknik Negeri Malang"
-    name="description">
-  <meta content="Login StarTrack" name="keywords">
-
+  
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -53,17 +52,23 @@ session_start()
       <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4 ">
         <div class="container">
           <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center" style="opacity : 80%">
+            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center"
+              style="opacity : 80%">
               <div class="card mb-3">
-                <div class="card-body" >
-                  <div class="pt-2 pb-2"> 
-                    <div class="d-flex justify-content-center py-3">
-                      <a href="index.html" class="logo-img d-flex align-items-center w-auto">
+                <div class="card-body">
+                  <div class="pt-2 pb-2">
+                    <div class="d-flex justify-content-center pt-3">
+                      <a href="login-page.php" class="logo-img d-flex align-items-center w-auto">
                         <img src="assets/img/logo.png" alt="">
                       </a>
                     </div>
+                    <div class="d-flex justify-content-center text-center py-3 p-0">
+                      <a class="logo" href="login-page.php">
+                        <span class="d-none d-lg-block">PRESMA
+                        <span class="text-primary">POLINEMA</span>
+                      </a>
+                    </div>
                   </div>
-
                   <form class="row g-3 needs-validation" id="loginForm" action="assets/php/login.php" method="post"
                     novalidate>
                     <div class="col-12">
@@ -73,7 +78,7 @@ session_start()
                         <div class="invalid-feedback" id="username-error"></div>
                       </div>
                     </div>
-                    
+
                     <div class="col-12">
                       <div class="input-group has-validation">
                         <input type="password" name="password" class="form-control" id="password" placeholder="Password"
